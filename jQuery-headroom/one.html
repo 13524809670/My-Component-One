@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>浮动菜单</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		* ul li{
+			list-style: none;
+		}
+		* a{
+			text-decoration: none;
+		}
+		.main{
+			height: 5000px;
+		}
+		/*浮动公共样式*/
+		.header1,.header2{
+			height: 40px;
+			line-height: 40px;
+			background: #222;
+			transition:height 2s,color 0.2s;
+			-webkit-transition: height 2s, color 0.2s;
+		}
+		.header1 a:hover,.header2 a:hover{
+			transition:color 1.2s;
+			-webkit-transition:color 1.6s;
+			color: red;
+		}
+		
+		.header1 li,.header2 li{
+			float: left;
+			padding:0 30px;
+			margin-right: 35px;
+		}
+		.header1 a,.header2 a{
+			color: aqua;
+		}
+		
+		.header2 {
+			position: fixed;
+			height: 200px;
+			width: 100%;
+			background: blue;
+		}
+
+		.box{
+			width: 1000px;
+			margin:200px auto;
+			background: #ccc;
+		}
+		/*tab 样式*/
+		#tab_con .hide{
+			display: none;
+		}
+		
+		#tab_con .show{
+			display: block;
+		}
+
+		#tab_con .show,#tab_con .hide{
+            height: 300px;
+            border:1px solid red;
+		}
+		#tab_bar a{
+			display: inline-block;
+			padding:5px 30px;
+		}
+		#tab_bar .on{
+			background: #222;
+			color:#fff;
+		}
+
+	</style>
+</head>
+<body>
+<div class="main">
+	<div class="header1" id="header">
+		<ul>
+			<li><a href="#">NAV-one</a></li>
+			<li><a href="#">NAV-two</a></li>
+			<li><a href="#">NAV-three</a></li>
+			<li><a href="#">NAV-four</a></li>
+			<li><a href="#">NAV-five</a></li>
+			<li><a href="#">NAV-six</a></li>
+			<li><a href="#">NAV-seven</a></li>
+			<li><a href="#">NAV-eight</a></li>
+			<li><a href="#">NAV-nine</a></li>
+			<li><a href="#">NAV-ten</a></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		window.onscroll= function(){
+			// console.log('9999999999',window,pageYOffset)
+			var top = window.pageYOffset;
+			var elm = document.getElementById('header')
+			if(top > 30){
+				elm.className = "header2"
+			}
+			else{
+				elm.className = "header1"
+			}
+		}
+	</script><br/><br/>
+
+
+
+
+	<div class="box">
+
+		<div id="tab_bar">
+			<a href="javascript:;" class="on">百度</a>
+			<a href="javascript:;">谷歌</a>
+			<a href="javascript:;">搜狗</a>
+		</div>
+
+		<div id="tab_con">
+
+			<div class="show">
+				This is My Baidu
+			</div>
+
+			<div class="hide">
+				This is My Goolgo
+			</div>
+
+			<div class="hide">
+				This is My Sougou
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//申明变量
+		var taba = document.getElementById('tab_bar');
+
+		var tabb = document.getElementById('tab_con');
+
+		if(taba){
+
+			var taba_a = taba.children;//子节点
+
+			for(var i = 0; i < taba_a.length; i++){
+
+				taba_a[i].onclick = function(e){
+
+					console.log("sss",e,i)
+				}
+				//匿名函数
+				;(function(num){
+
+					taba_a[i].onclick = function(e){
+
+						console.log("sss",e,num,tabb.children[num]);
+
+						var tabb_b = tabb.children;//子节点
+
+						for(var i = 0; i < tabb_b.length;i++){
+
+							tabb_b[i].className='hide'
+						}
+
+
+						for(var i = 0;i < taba_a.length; i++){
+
+							taba_a[i].className=''
+						};
+
+						taba_a[num].className = 'on';
+
+						tabb_b[num].className = 'show';
+
+					}
+
+				})(i);
+			};
+		};
+	</script>
+</div>
+</body>
+</html>
